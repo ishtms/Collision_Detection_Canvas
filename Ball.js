@@ -16,7 +16,7 @@ function calculateYPosition(_pos, _radius) {
 
 var Ball = function(_xPos, _yPos, _radius, _speedX, _speedY, _colour) {
     var xValue =
-    this.xPos = calculateXPosition(_xPos, _radius);
+        this.xPos = calculateXPosition(_xPos, _radius);
     this.yPos = calculateYPosition(_yPos, _radius);
     this.radius = _radius;
     this.speedX = floor(_speedX) === 0 ? _speedX + 1 : _speedX;
@@ -42,10 +42,12 @@ var Ball = function(_xPos, _yPos, _radius, _speedX, _speedY, _colour) {
         this.yPos += this.speedY;
     }
 
-    this.checkPressed = function(_xPos, _yPos) {
-        if (dist(this.xPos, this.yPos, _xPos, _yPos) < this.radius * 2) {
-            this.xPos
+    this.checkCollision = function(_ball) {
+        if (dist(this.xPos, this.yPos, _ball.xPos, _ball.yPos) < this.radius + _ball.radius) {
+            this.speedX *= -1;
+            _ball.speedX *= -1;
+            this.speedY *= -1;
+            _ball.speedY *= -1;
         }
     }
-
 }
