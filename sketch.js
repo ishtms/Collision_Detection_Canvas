@@ -1,15 +1,16 @@
 var ballContainer = [];
 
 function randomXYGenerator(_limit) {
-    return floor(random(0, _limit));
+    return random(20, _limit);
 }
 
 function randomRadiusGenerator() {
-    return random(20, 80);
+    return random(10, 30);
 }
 
 function randomSpeedGenerator() {
-    return random(-10, 10);
+    var speed = random(-5, 5);
+    return floor(speed) == 0 ? 2 : speed;
 }
 
 function randomColorGenerator() {
@@ -17,20 +18,26 @@ function randomColorGenerator() {
 }
 
 function drawBalls() {
-    console.log(ballContainer.length)
-    for(var index = 0; index < ballContainer.length; index++) {
+    for (var index = 0; index < ballContainer.length; index++) {
         ballContainer[index].update();
     }
 }
 
+function mouseOver() {
+    for (var index = 0; index < ballContainer.length - 1; index++) {
+        ballContainer[index].checkPressed(mouseX, mouseY);
+    }
+}
+
 function setup() {
-    createCanvas(800, 800);
+    createCanvas(window.innerWidth, window.innerHeight);
     for (var index = 0; index < 20; index++) {
         ballContainer.push(
             new Ball(
                 randomXYGenerator(width),
                 randomXYGenerator(height),
                 randomRadiusGenerator(),
+                randomSpeedGenerator(),
                 randomSpeedGenerator(),
                 randomColorGenerator()
             )
@@ -42,4 +49,3 @@ function draw() {
     background(123)
     drawBalls();
 }
-
