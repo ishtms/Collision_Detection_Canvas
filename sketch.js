@@ -9,8 +9,8 @@ function randomRadiusGenerator() {
 }
 
 function randomSpeedGenerator() {
-    var speed = random(-5, 5);
-    return floor(speed) == 0 ? 2 : speed;
+    var speed = random(-1, 1);
+    return floor(speed) == 0 ? 1 : speed;
 }
 
 function randomColorGenerator() {
@@ -23,15 +23,9 @@ function drawBalls() {
     }
 }
 
-function mouseOver() {
-    for (var index = 0; index < ballContainer.length - 1; index++) {
-        ballContainer[index].checkPressed(mouseX, mouseY);
-    }
-}
-
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
-    for (var index = 0; index < 20; index++) {
+    for (var index = 0; index < 7; index++) {
         ballContainer.push(
             new Ball(
                 randomXYGenerator(width),
@@ -45,7 +39,15 @@ function setup() {
     }
 }
 
+var count = 0;
+
 function draw() {
     background(123)
+    for(var index = 0; index < ballContainer.length - 1; index++) {
+        for(var inner = index + 1; inner < ballContainer.length; inner++) {
+            ballContainer[index].checkCollision(ballContainer[inner])
+        }
+    }
     drawBalls();
+    
 }
