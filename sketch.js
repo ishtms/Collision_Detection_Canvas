@@ -24,7 +24,7 @@ function drawBalls() {
 }
 
 function setup() {
-    createCanvas(800);
+    createCanvas(800, 800);
     for (var index = 0; index < 20; index++) {
         ballContainer.push(
             new Ball(
